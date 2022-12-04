@@ -43,7 +43,7 @@ class InventoryMovementTest extends TestCase
     public function test_application_action_avaliable_purchases_simple()
     {
         $purchaseAction = new InventoryPurchaseAction();
-        $purchaseAction->execute(2, 20);
+        $purchaseAction->execute(2, 20.00);
 
         $applicationAction = new InventoryApplicationAction();
 
@@ -55,11 +55,11 @@ class InventoryMovementTest extends TestCase
 
         $this->assertDatabaseHas('purchases', [
             'quantity' => 2,
-            'price' => 2,
+            'price' => 20,
             'consumed' => 1
         ]);
 
-        $this->assertDatabaseHas('applications_purchases', [
+        $this->assertDatabaseHas('application_purchase', [
             'application_id' => $application->id,
             'purchase_id' => 1,
             'quantity' => 1
