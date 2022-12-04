@@ -54,4 +54,19 @@ class InventoryCheckActionTest extends InventoryBaseTest
         $this->assertEquals(50, $value);
     }
 
+    /**
+     * Test the inventory check function if there is not enough records
+     *
+     * @return void
+     */
+    public function test_inventory_check_action_not_enough_purchases()
+    {
+        $this->createPurchaseExample();
+
+        $checkAction = new InventoryCheckAction();
+        $value = $checkAction->execute(8);
+
+        $this->assertEquals(false, $value);
+    }
+
 }

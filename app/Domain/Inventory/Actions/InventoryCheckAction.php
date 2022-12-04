@@ -6,8 +6,17 @@ use App\Models\Purchase;
 
 final class InventoryCheckAction
 {
-    public function execute(int $quantity): float
+    /**
+     * Check inventory and return the total price or false
+     *
+     * @param int $quantity
+     * @return float|bool
+     */
+    public function execute(int $quantity): float | bool
     {
+        if (Purchase::totalAvailable() < $quantity) {
+            return false;
+        }
 
         $purchases = Purchase::available()->get();
 
