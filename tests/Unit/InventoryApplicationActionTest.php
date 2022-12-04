@@ -16,11 +16,11 @@ class InventoryApplicationActionTest extends TestCase
     }
 
     /**
-     * Test the application function
+     * Test the application function across 1 purchase
      *
      * @return void
      */
-    public function test_application_action_avaliable_purchases_simple()
+    public function test_application_action_simple()
     {
         $purchaseAction = new InventoryPurchaseAction();
         $purchaseAction->execute(2, 20.00);
@@ -49,20 +49,63 @@ class InventoryApplicationActionTest extends TestCase
     }
 
     /**
+     * Test the application function across multiple purchases
+     *
+     * @return void
+     */
+    public function test_application_action_advanced()
+    {
+        $purchases = $this->createPurchaseExample();
+
+        $applicationAction = new InventoryApplicationAction();
+
+        $application = $applicationAction->execute(2);
+
+        $this->assertDatabaseHas('purchases', [
+            'id' => $purchases[0]->id,
+            'quantity' => 1,
+            'price' => 10,
+            'consumed' => 1
+        ]);
+
+        $this->assertDatabaseHas('purchases', [
+            'id' => $purchases[1]->id,
+            'quantity' => 2,
+            'price' => 20,
+            'consumed' => 1
+        ]);
+
+        $this->assertDatabaseHas('application_purchase', [
+            'application_id' => $application->id,
+            'purchase_id' => $purchases[0]->id,
+            'quantity' => 1
+        ]);
+
+        $this->assertDatabaseHas('application_purchase', [
+            'application_id' => $application->id,
+            'purchase_id' => $purchases[1]->id,
+            'quantity' => 1
+        ]);
+
+    }
+
+    /**
      * Creates the purchase example
      * a. Purchased 1 unit at $10 per unit
      * b. Purchased 2 units at $20 per unit
      * c. Purchased 2 units at $15 per unit
      *
-     * @return void
+     * @return array
      */
-    private function createPurchaseExample()
+    private function createPurchaseExample(): array
     {
         $purchaseAction = new InventoryPurchaseAction();
 
-        $purchaseAction->execute(1, 10);
-        $purchaseAction->execute(2, 20);
-        $purchaseAction->execute(2, 15);
+        return [
+            $purchaseAction->execute(1, 10),
+            $purchaseAction->execute(2, 20),
+            $purchaseAction->execute(2, 15)
+        ];
     }
 
 }
