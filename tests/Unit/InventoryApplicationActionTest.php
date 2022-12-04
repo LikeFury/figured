@@ -75,6 +75,13 @@ class InventoryApplicationActionTest extends TestCase
             'consumed' => 1
         ]);
 
+        $this->assertDatabaseHas('purchases', [
+            'id' => $purchases[2]->id,
+            'quantity' => 2,
+            'price' => 15,
+            'consumed' => 0
+        ]);
+
         $this->assertDatabaseHas('application_purchase', [
             'application_id' => $application->id,
             'purchase_id' => $purchases[0]->id,
