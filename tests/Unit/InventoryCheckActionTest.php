@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Domain\Inventory\Actions\InventoryApplicationAction;
 use App\Domain\Inventory\Actions\InventoryCheckAction;
 use Tests\InventoryBaseTest;
 
@@ -23,6 +24,29 @@ class InventoryCheckActionTest extends InventoryBaseTest
     public function test_inventory_check_action()
     {
         $this->createPurchaseExample();
+
+        $applicationAction = new InventoryApplicationAction();
+        $applicationAction->execute(2);
+
+        $checkAction = new InventoryCheckAction();
+        $value = $checkAction->execute(2);
+
+        $this->assertEquals(50, $value);
+    }
+
+    /**
+     * Test the inventory check function if there are a lot more records
+     *
+     * @return void
+     * @throws \App\Domain\Inventory\Exceptions\InventoryUnavailableException
+     */
+    public function test_inventory_check_action_more_purchases()
+    {
+        $this->createPurchaseExample();
+        $this->createPurchaseExample();
+
+        $applicationAction = new InventoryApplicationAction();
+        $applicationAction->execute(2);
 
         $checkAction = new InventoryCheckAction();
         $value = $checkAction->execute(2);
