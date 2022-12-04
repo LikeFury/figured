@@ -97,6 +97,24 @@ class InventoryApplicationActionTest extends TestCase
     }
 
     /**
+     * Test the application returns false when there are not enough purchases
+     *
+     * @return void
+     */
+    public function test_application_action_not_enough_purchases()
+    {
+        $purchaseAction = new InventoryPurchaseAction();
+        $purchaseAction->execute(1, 20.00);
+        $purchaseAction->execute(1, 15.00);
+
+        $applicationAction = new InventoryApplicationAction();
+
+        $application = $applicationAction->execute(3);
+
+        $this->assertFalse($application);
+    }
+
+    /**
      * Creates the purchase example
      * a. Purchased 1 unit at $10 per unit
      * b. Purchased 2 units at $20 per unit
