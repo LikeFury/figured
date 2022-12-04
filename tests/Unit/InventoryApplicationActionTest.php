@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Domain\Inventory\Actions\InventoryApplicationAction;
 use App\Domain\Inventory\Actions\InventoryPurchaseAction;
+use App\Domain\Inventory\Exceptions\InventoryUnavailableException;
 use App\Models\Application;
 use Tests\TestCase;
 
@@ -98,20 +99,22 @@ class InventoryApplicationActionTest extends TestCase
 
     /**
      * Test the application returns false when there are not enough purchases
+     * Do I really want this function to handle a case where there is not enough purchases?? This should be handled by the request on input validations
      *
      * @return void
      */
     public function test_application_action_not_enough_purchases()
     {
+        $this->withExceptionHandling();
+
+        $this->expectException(InventoryUnavailableException::class);
+
         $purchaseAction = new InventoryPurchaseAction();
         $purchaseAction->execute(1, 20.00);
         $purchaseAction->execute(1, 15.00);
 
         $applicationAction = new InventoryApplicationAction();
-
-        $application = $applicationAction->execute(3);
-
-        $this->assertFalse($application);
+        $applicationAction->execute(3);
     }
 
     /**
