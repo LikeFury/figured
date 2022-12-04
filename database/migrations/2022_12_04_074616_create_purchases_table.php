@@ -19,7 +19,7 @@ return new class extends Migration
             // Laravel default is 2 decimal places which will be ideal for a price
             $table->decimal('price');
             // By adding a consumed column here and keeping it up to date, we can create performant lookups rather than recalculating applications or performing application lookups
-            $table->integer('consumed');
+            $table->integer('consumed')->default(0);
             $table->timestamps();
         });
     }
