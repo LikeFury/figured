@@ -8,12 +8,6 @@ use Tests\TestCase;
 
 class InventoryPurchaseActionTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->withoutExceptionHandling();
-    }
-
     /**
      * Test the purchase functions correctly
      *

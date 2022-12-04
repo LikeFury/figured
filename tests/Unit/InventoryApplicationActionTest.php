@@ -10,12 +10,6 @@ use Tests\InventoryBaseTest;
 
 class InventoryApplicationActionTest extends InventoryBaseTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->withoutExceptionHandling();
-    }
-
     /**
      * Test the application function across 1 purchase
      *

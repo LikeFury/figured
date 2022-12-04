@@ -6,6 +6,12 @@ use App\Domain\Inventory\Actions\InventoryPurchaseAction;
 
 class InventoryBaseTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutExceptionHandling();
+    }
+
     /**
      * Creates the purchase example
      * a. Purchased 1 unit at $10 per unit
