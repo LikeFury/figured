@@ -6,6 +6,7 @@ use App\Domain\Inventory\Actions\InventoryApplicationAction;
 use App\Domain\Inventory\Actions\InventoryPurchaseAction;
 use App\Domain\Inventory\Exceptions\InventoryUnavailableException;
 use App\Models\Application;
+use Tests\InventoryBaseTest;
 
 class InventoryApplicationActionTest extends InventoryBaseTest
 {

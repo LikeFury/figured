@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests;
 
 use App\Domain\Inventory\Actions\InventoryPurchaseAction;
-use Tests\TestCase;
 
 class InventoryBaseTest extends TestCase
 {
@@ -15,7 +14,7 @@ class InventoryBaseTest extends TestCase
      *
      * @return array
      */
-    public function createPurchaseExample(): array
+    protected function createPurchaseExample(): array
     {
         $purchaseAction = new InventoryPurchaseAction();
 
