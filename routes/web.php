@@ -24,3 +24,7 @@ Route::prefix('/api')->name('api.')->group(function () {
     });
 
 });
+
+Route::get('/', function() {
+    return view('app');
+});

@@ -37,7 +37,7 @@ final class InventoryCheckAction
 
         }
 
-        return $price;
+        return round($price, 2);
     }
 
 }
