@@ -72,10 +72,12 @@ final class InventoryApplicationAction
      */
     private function calculateConsumedQuantity(Purchase $purchase, int $requestQuantity): int
     {
-        if ($requestQuantity > $purchase->quantity) {
-            $consumedQuantity = $requestQuantity - $purchase->quantity;
+        $availableQuantity = $purchase->quantity - $purchase->consumed;
+
+        if ($requestQuantity > $availableQuantity) {
+            $consumedQuantity = $availableQuantity;
         } else {
-            $consumedQuantity = $purchase->quantity - $requestQuantity;
+            $consumedQuantity = $requestQuantity;
         }
 
         return $consumedQuantity;
@@ -90,7 +92,7 @@ final class InventoryApplicationAction
      */
     private function savePurchaseAndEstablishRelationship(Application $application, Purchase $purchase, int $consumedQuantity): void
     {
-        $purchase->consumed = $consumedQuantity;
+        $purchase->consumed = $purchase->consumed + $consumedQuantity;
         $purchase->save();
 
         $application->purchases()->attach($purchase, [

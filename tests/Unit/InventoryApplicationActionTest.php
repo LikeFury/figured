@@ -6,6 +6,7 @@ use App\Domain\Inventory\Actions\InventoryApplicationAction;
 use App\Domain\Inventory\Actions\InventoryPurchaseAction;
 use App\Domain\Inventory\Exceptions\InventoryUnavailableException;
 use App\Models\Application;
+use App\Models\Purchase;
 use Tests\InventoryBaseTest;
 
 class InventoryApplicationActionTest extends InventoryBaseTest
@@ -89,6 +90,38 @@ class InventoryApplicationActionTest extends InventoryBaseTest
             'quantity' => 1
         ]);
 
+    }
+
+    /**
+     * Test application making sure that applications are consuming partial purchases
+     *
+     * @return void
+     * @throws InventoryUnavailableException
+     */
+    public function test_application_action_partial_purchases()
+    {
+        $purchaseAction = new InventoryPurchaseAction();
+        $applicationAction = new InventoryApplicationAction();
+
+        $purchase1 = $purchaseAction->execute(20, 20.00);
+        $application = $applicationAction->execute(10);
+
+        $purchase2 = $purchaseAction->execute(40, 20.00);
+        $application = $applicationAction->execute(20);
+
+        $this->assertDatabaseHas('purchases', [
+            'id' => $purchase1->id,
+            'quantity' => 20,
+            'price' => 20,
+            'consumed' => 20
+        ]);
+
+        $this->assertDatabaseHas('purchases', [
+            'id' => $purchase2->id,
+            'quantity' => 40,
+            'price' => 20,
+            'consumed' => 10
+        ]);
     }
 
     /**

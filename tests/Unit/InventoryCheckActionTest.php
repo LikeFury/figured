@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Domain\Inventory\Actions\InventoryApplicationAction;
 use App\Domain\Inventory\Actions\InventoryCheckAction;
+use App\Models\Purchase;
 use Tests\InventoryBaseTest;
 
 class InventoryCheckActionTest extends InventoryBaseTest
@@ -29,9 +30,35 @@ class InventoryCheckActionTest extends InventoryBaseTest
         $applicationAction->execute(2);
 
         $checkAction = new InventoryCheckAction();
-        $value = $checkAction->execute(2);
+        $value = $checkAction->execute(3);
 
         $this->assertEquals(50, $value);
+    }
+
+    /**
+     * Make sure that partial purchases are calculated correctly
+     *
+     * @return void
+     */
+    public function test_inventory_check_action_partial_purchases()
+    {
+        Purchase::factory()->create([
+            'quantity' => 10,
+            'price' => 10.00,
+            'consumed' => 8
+        ]);
+
+        Purchase::factory()->create([
+            'quantity' => 5,
+            'price' => 5.00,
+            'consumed' => 0
+        ]);
+
+        $checkAction = new InventoryCheckAction();
+        $value = $checkAction->execute(4);
+
+        // (2 * 10) + (2 * 5) = 30
+        $this->assertEquals(30, $value);
     }
 
     /**
@@ -49,7 +76,7 @@ class InventoryCheckActionTest extends InventoryBaseTest
         $applicationAction->execute(2);
 
         $checkAction = new InventoryCheckAction();
-        $value = $checkAction->execute(2);
+        $value = $checkAction->execute(3);
 
         $this->assertEquals(50, $value);
     }

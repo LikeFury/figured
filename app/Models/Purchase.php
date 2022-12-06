@@ -16,7 +16,7 @@ class Purchase extends Model
      */
     public function scopeAvailable($query)
     {
-        return $query->where('consumed', '<', 'quantity');
+        return $query->whereRaw('consumed < quantity');
     }
 
     /**

@@ -31,8 +31,8 @@ final class InventoryCheckAction
                 $quantity = $quantity - $availableQuantity;
                 $price += $availableQuantity * $purchase->price;
             } else {
+                $price += $quantity * $purchase->price;
                 $quantity = 0;
-                $price += ($availableQuantity - $quantity) * $purchase->price;
             }
 
         }
