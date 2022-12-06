@@ -1,0 +1,104 @@
+[
+    {
+        "Date": "05/06/2020",
+        "Type": "Purchase",
+        "Quantity": 10,
+        "Unit Price": 5
+    },
+    {
+        "Date": "07/06/2020",
+        "Type": "Purchase",
+        "Quantity": 30,
+        "Unit Price": 4.5
+    },
+    {
+        "Date": "08/06/2020",
+        "Type": "Application",
+        "Quantity": -20,
+        "Unit Price": ""
+    },
+    {
+        "Date": "09/06/2020",
+        "Type": "Purchase",
+        "Quantity": 10,
+        "Unit Price": 5
+    },
+    {
+        "Date": "10/06/2020",
+        "Type": "Purchase",
+        "Quantity": 34,
+        "Unit Price": 4.5
+    },
+    {
+        "Date": "15/06/2020",
+        "Type": "Application",
+        "Quantity": -25,
+        "Unit Price": ""
+    },
+    {
+        "Date": "23/06/2020",
+        "Type": "Application",
+        "Quantity": -37,
+        "Unit Price": ""
+    },
+    {
+        "Date": "10/07/2020",
+        "Type": "Purchase",
+        "Quantity": 47,
+        "Unit Price": 4.3
+    },
+    {
+        "Date": "12/07/2020",
+        "Type": "Application",
+        "Quantity": -38,
+        "Unit Price": ""
+    },
+    {
+        "Date": "13/07/2020",
+        "Type": "Purchase",
+        "Quantity": 10,
+        "Unit Price": 5
+    },
+    {
+        "Date": "25/07/2020",
+        "Type": "Purchase",
+        "Quantity": 50,
+        "Unit Price": 4.2
+    },
+    {
+        "Date": "26/07/2020",
+        "Type": "Application",
+        "Quantity": -28,
+        "Unit Price": ""
+    },
+    {
+        "Date": "31/07/2020",
+        "Type": "Purchase",
+        "Quantity": 10,
+        "Unit Price": 5
+    },
+    {
+        "Date": "14/08/2020",
+        "Type": "Purchase",
+        "Quantity": 15,
+        "Unit Price": 5
+    },
+    {
+        "Date": "17/08/2020",
+        "Type": "Purchase",
+        "Quantity": 3,
+        "Unit Price": 6
+    },
+    {
+        "Date": "29/08/2020",
+        "Type": "Purchase",
+        "Quantity": 2,
+        "Unit Price": 7
+    },
+    {
+        "Date": "31/08/2020",
+        "Type": "Application",
+        "Quantity": -30,
+        "Unit Price": ""
+    }
+]
