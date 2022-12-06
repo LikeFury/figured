@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Inventory\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/api')->name('api.')->group(function () {
+
+    Route::prefix('/inventory')->name('inventory.')->group(function () {
+
+        Route::controller(InventoryController::class)->group(function () {
+            Route::post('/check', 'check')->name('check');
+        });
+    });
+
 });
